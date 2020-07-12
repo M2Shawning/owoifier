@@ -9,8 +9,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import xyz.nkomarn.owoifier.util.Owoification;
 
 import java.util.Random;
+import java.util.UUID;
+import java.util.Vector;
 
 public class Owoifier extends JavaPlugin implements Listener {
+    public Vector<UUID> enabledPlayerUUIDs = new Vector<>();
+
     final String[] expressions = {
             ">_<", ":3", "ʕʘ‿ʘʔ", ":D", "._.",
             ";3", "xD", "ㅇㅅㅇ", "(人◕ω◕)",
@@ -21,13 +25,14 @@ public class Owoifier extends JavaPlugin implements Listener {
 
     public void onEnable() {
         saveDefaultConfig();
-        getServer().getPluginManager().registerEvents(this, this);
+        this.getServer().getPluginManager().registerEvents(this, this);
+        this.getCommand("owo").setExecutor(new CommandHandler(this));
     }
 
     @EventHandler
     public void onAsyncChat(AsyncPlayerChatEvent event) {
         final Player p = event.getPlayer();
-        if((p.hasPermission("owoifier.use.chat") && getConfig().getBoolean("use_perms"))||!getConfig().getBoolean("use_perms")) {
+        if (enabledPlayerUUIDs.contains(p.getUniqueId())) {
             final Random random = new Random();
             final String expression = expressions[random.nextInt(expressions.length)];
             event.setMessage(Owoification.owoify(event.getMessage()) + " " + expression);
@@ -37,7 +42,7 @@ public class Owoifier extends JavaPlugin implements Listener {
     @EventHandler
     public void onSignChange(SignChangeEvent event) {
         final Player p = event.getPlayer();
-        if((p.hasPermission("owoifier.use.sign") && getConfig().getBoolean("use_perms"))||!getConfig().getBoolean("use_perms")) {
+        if (enabledPlayerUUIDs.contains(p.getUniqueId())) {
             int lineNumber = 0;
             for (final String line : event.getLines()) {
                 event.setLine(lineNumber++, Owoification.owoify(line));

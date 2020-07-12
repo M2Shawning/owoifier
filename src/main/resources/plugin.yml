@@ -5,6 +5,10 @@ version: '1.3'
 author: TechToolbox (@nkomarn)
 website: https://nkomarn.xyz
 api-version: '1.13'
+commands:
+  owo:
+    description: Toggle the use of owo mode
+    usage: /owo
 permissions:
   owoifier.use:
     description: Enables owoifier for people with this permission

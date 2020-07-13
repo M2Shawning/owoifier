@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.nkomarn.owoifier.util.Owoification;
 
@@ -48,5 +49,11 @@ public class Owoifier extends JavaPlugin implements Listener {
                 event.setLine(lineNumber++, Owoification.owoify(line));
             }
         }
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        final Player p = event.getPlayer();
+        enabledPlayerUUIDs.remove(p.getUniqueId());
     }
 }

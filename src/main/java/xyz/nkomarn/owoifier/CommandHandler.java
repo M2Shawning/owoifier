@@ -20,8 +20,12 @@ public class CommandHandler implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length != 0) {
+            return false;
+        }
+
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "You must be a player to use this command");
+            sender.sendMessage(ChatColor.RED + "[Owoifier] " + "You must be a player to use that command");
             return true;
         }
 
@@ -31,8 +35,10 @@ public class CommandHandler implements CommandExecutor {
                 final UUID pUUID = p.getUniqueId();
                 if (enabledPlayerUUIDs.contains(pUUID)) {
                     enabledPlayerUUIDs.remove(pUUID);
+                    p.sendMessage(ChatColor.GREEN + "[Owoifier] " + "Bwye Bwye");
                 } else {
                     enabledPlayerUUIDs.add(pUUID);
+                    p.sendMessage(ChatColor.GREEN + "[Owoifier] " + "OwO What's This?");
                 }
             }
         }

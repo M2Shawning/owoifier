@@ -1,9 +1,9 @@
 name: Owoifier
 description: owoifier owoifies your server!
 main: xyz.nkomarn.owoifier.Owoifier
-version: '1.3'
-author: TechToolbox (@nkomarn)
-website: https://nkomarn.xyz
+version: '1.3.2'
+author: TechToolbox (@nkomarn), M2Shawning
+website: https://nkomarn.xyz, https://github.com/m2shawning
 api-version: '1.13'
 commands:
   owo:
